@@ -45,41 +45,63 @@ avicenna-marketing/
 
 ---
 
-## Setup pour un nouveau collaborateur (clone sur une nouvelle machine)
+## Setup pour un nouveau collaborateur
 
-### Prérequis
+Le repo a deux modes d'usage qui se combinent :
 
-- **Git** + un compte GitHub avec accès au repo `cyrou13/marketing`
+| Mode | Quoi | Pour qui |
+|------|------|----------|
+| **A — Plugin Claude Code** | Les 5 skills installés globalement, dispos partout | Tout le monde (recommandé) |
+| **B — Clone du repo** | Brand pack + workflows + prompts + outputs | Marketing + équipe contenu |
+
+### Prérequis communs
+
 - **Claude Code** installé : https://claude.com/claude-code
-- (Optionnel mais recommandé) accès au Project Claude.ai « Avicenna Marketing Studio »
+- Compte GitHub avec accès au repo `cyrou13/marketing` (privé)
+- (Optionnel) accès au Project Claude.ai « Avicenna Marketing Studio »
 
-### Installation
+### Mode A — Installer les skills via le plugin manager
+
+Une fois dans Claude Code, taper :
+
+```
+/plugin marketplace add cyrou13/marketing
+/plugin install avicenna-marketing
+```
+
+Les 5 skills (`linkedin-post`, `blog-article`, `case-study`, `regulatory-comm`, `newsletter`) sont alors disponibles **dans toutes tes sessions Claude Code**, pas seulement quand tu es dans le repo.
+
+Pour mettre à jour quand un skill évolue :
+
+```
+/plugin update avicenna-marketing
+```
+
+### Mode B — Cloner le repo (pour le brand pack et les workflows)
 
 ```bash
-# 1. Cloner le repo
 git clone git@github.com:cyrou13/marketing.git avicenna-marketing
 cd avicenna-marketing
-
-# 2. Lancer Claude Code à la racine
 claude
 ```
 
 Claude Code détecte automatiquement :
 - Le `CLAUDE.md` racine (briefing + règles non-négociables)
-- Les skills dans `.claude/skills/` (linkedin-post, blog-article, case-study, regulatory-comm, newsletter)
+- Les skills dans `.claude/skills/` (en plus du plugin si déjà installé — dédupliqué)
 - Le brand pack dans `brand/`
+- Les workflows dans `workflows/`
+- Les prompts dans `prompts/`
 
-### Premier message recommandé pour vérifier l'install
+### Premier test (après l'un OU l'autre des modes)
 
 ```
 Liste les skills disponibles et explique ce que chacun fait.
 ```
 
-Puis un test simple :
+Puis :
 
 ```
 Drafte un post LinkedIn corporate annonçant que nous serons à RSNA 2026.
-Stand prévu n°XXXX, on présentera la roadmap CT Perfusion.
 Use the linkedin-post skill.
 ```
 
@@ -91,9 +113,8 @@ Si Claude pose des questions de clarification AVANT de rédiger, l'install est O
 
 ### Mises à jour
 
-```bash
-git pull
-```
+- **Skills (plugin)** : `/plugin update avicenna-marketing` dans Claude Code
+- **Brand pack & workflows** : `git pull` dans le clone
 
 Le brand pack est versionné — toute modif passe par PR + review (cf. section *Maintenance*).
 

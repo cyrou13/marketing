@@ -1,0 +1,23 @@
+{
+  "name": "avicenna-marketing",
+  "version": "0.1.0",
+  "description": "Skills Claude Code pour la production de contenu marketing Avicenna.ai (LinkedIn, blog, étude de cas, communiqué régulatoire, newsletter). Charge le brand pack et applique le regulatory-guard avant chaque draft.",
+  "author": {
+    "name": "Cyril Di Grandi",
+    "email": "cyril.di-grandi@avicenna.ai"
+  },
+  "homepage": "https://github.com/cyrou13/marketing",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:cyrou13/marketing.git"
+  },
+  "license": "UNLICENSED",
+  "keywords": [
+    "marketing",
+    "medtech",
+    "radiology",
+    "ai",
+    "claude-code-plugin"
+  ],
+  "skills": "./.claude/skills"
+}
