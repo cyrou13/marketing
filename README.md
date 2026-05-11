@@ -77,9 +77,10 @@ Pour mettre à jour quand le plugin évolue :
 
 ```
 /plugin marketplace update avicenna-marketing
-/plugin update avicenna-marketing
+/reload-plugins
 ```
-Puis restart.
+
+Note : `/plugin update <plugin>` n'existe **pas** côté UI Claude Code (c'est une commande CLI). Côté UI, le `marketplace update` rafraîchit le catalogue, le `reload-plugins` réapplique. Si le plugin paraît bloqué sur une vieille version après ça, fallback : `/plugin uninstall avicenna-marketing@avicenna-marketing` puis `/plugin install avicenna-marketing@avicenna-marketing`. Nuclear option en cas de cache cassé : `rm -rf ~/.claude/plugins/cache` puis restart + réinstall.
 
 ### Profil B — Cloner le repo (pour éditer le brand pack et les skills)
 
