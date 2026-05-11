@@ -26,14 +26,14 @@ Copier les 5 templates du brand pack depuis le plugin vers le cwd. Utiliser la v
 
 ```bash
 mkdir -p ./brand
-cp -n "${CLAUDE_PLUGIN_ROOT}/brand/voice.md" ./brand/
-cp -n "${CLAUDE_PLUGIN_ROOT}/brand/regulatory-guard.md" ./brand/
-cp -n "${CLAUDE_PLUGIN_ROOT}/brand/glossary.md" ./brand/
-cp -n "${CLAUDE_PLUGIN_ROOT}/brand/audiences.md" ./brand/
-cp -n "${CLAUDE_PLUGIN_ROOT}/brand/proof-points.md" ./brand/
+cp --update=none "${CLAUDE_PLUGIN_ROOT}/brand/voice.md" ./brand/
+cp --update=none "${CLAUDE_PLUGIN_ROOT}/brand/regulatory-guard.md" ./brand/
+cp --update=none "${CLAUDE_PLUGIN_ROOT}/brand/glossary.md" ./brand/
+cp --update=none "${CLAUDE_PLUGIN_ROOT}/brand/audiences.md" ./brand/
+cp --update=none "${CLAUDE_PLUGIN_ROOT}/brand/proof-points.md" ./brand/
 ```
 
-Le flag `-n` (no-clobber) protège un éventuel travail en cours. En mode `--force` confirmé, retirer `-n`.
+Le flag `--update=none` (équivalent moderne de `-n`, sans warning) protège un éventuel travail en cours. En mode `--force` confirmé, retirer `--update=none`. Fallback sur les anciennes versions de coreutils (BSD/macOS) : `[ -f ./brand/voice.md ] || cp "${CLAUDE_PLUGIN_ROOT}/brand/voice.md" ./brand/`.
 
 Si `${CLAUDE_PLUGIN_ROOT}` n'est pas résolu dans l'environnement, fallback : demander à l'utilisateur le path de son plugin installé (`~/.claude/plugins/cache/<marketplace>/<plugin>/<version>/`) ou utiliser Read+Write pour copier fichier par fichier en lisant depuis le path absolu du plugin.
 
