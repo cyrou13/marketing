@@ -1,7 +1,6 @@
 ---
 name: start
-description: Démarrage du plugin avicenna-marketing — scaffolde le workspace (brand pack éditable, knowledge bundle pour claude.ai, dossier outputs) la première fois, puis audite l'état du brand pack et liste les skills disponibles. À invoquer explicitement via /avicenna-marketing:start après installation du plugin.
-disable-model-invocation: true
+description: Démarrage du plugin avicenna-marketing — scaffolde le workspace (brand pack éditable, knowledge bundle pour claude.ai, dossier outputs) la première fois, puis audite l'état du brand pack et liste les skills disponibles. À invoquer explicitement via /avicenna-marketing:start après installation du plugin. Ne se déclenche QUE sur demande explicite "démarre / initialise / scaffolde le plugin avicenna-marketing" — jamais pour des questions générales sur le contenu marketing.
 ---
 
 # Skill — Démarrage Avicenna Marketing
