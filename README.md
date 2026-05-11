@@ -47,12 +47,12 @@ avicenna-marketing/
 
 ## Setup pour un nouveau collaborateur
 
-Le repo a deux modes d'usage qui se combinent :
+Deux profils d'usage :
 
-| Mode | Quoi | Pour qui |
-|------|------|----------|
-| **A — Plugin Claude Code** | Les 5 skills installés globalement, dispos partout | Tout le monde (recommandé) |
-| **B — Clone du repo** | Brand pack + workflows + prompts + outputs | Marketing + équipe contenu |
+| Profil | Installation | Pour qui |
+|--------|--------------|----------|
+| **A — Consommateur de contenu** | Plugin Claude Code via marketplace | Marketing, sales, équipe contenu (la plupart) |
+| **B — Mainteneur du brand pack** | Clone du repo (édition `brand/`, skills) | Tech + responsable marketing (1-2 personnes) |
 
 ### Prérequis communs
 
@@ -60,24 +60,28 @@ Le repo a deux modes d'usage qui se combinent :
 - Compte GitHub avec accès au repo `cyrou13/marketing` (privé)
 - (Optionnel) accès au Project Claude.ai « Avicenna Marketing Studio »
 
-### Mode A — Installer les skills via le plugin manager
+### Profil A — Installer le plugin (5 min, une fois)
 
-Une fois dans Claude Code, taper :
+Dans Claude Code :
 
 ```
 /plugin marketplace add cyrou13/marketing
-/plugin install avicenna-marketing
+/plugin install avicenna-marketing@avicenna-marketing
 ```
 
-Les 5 skills (`linkedin-post`, `blog-article`, `case-study`, `regulatory-comm`, `newsletter`) sont alors disponibles **dans toutes tes sessions Claude Code**, pas seulement quand tu es dans le repo.
+Puis **redémarrer Claude Code** (l'install demande un restart pour activer les skills).
 
-Pour mettre à jour quand un skill évolue :
+Les 6 skills (`linkedin-post`, `blog-article`, `case-study`, `regulatory-comm`, `newsletter`, `start`) sont alors disponibles dans toutes tes sessions Claude Code, partout sur ta machine.
+
+Pour mettre à jour quand le plugin évolue :
 
 ```
+/plugin marketplace update avicenna-marketing
 /plugin update avicenna-marketing
 ```
+Puis restart.
 
-### Mode B — Cloner le repo (pour le brand pack et les workflows)
+### Profil B — Cloner le repo (pour éditer le brand pack et les skills)
 
 ```bash
 git clone git@github.com:cyrou13/marketing.git avicenna-marketing
@@ -87,102 +91,84 @@ claude
 
 Claude Code détecte automatiquement :
 - Le `CLAUDE.md` racine (briefing + règles non-négociables)
-- Les skills dans `.claude/skills/` (en plus du plugin si déjà installé — dédupliqué)
+- Les skills dans `.claude/skills/`
 - Le brand pack dans `brand/`
 - Les workflows dans `workflows/`
 - Les prompts dans `prompts/`
 
-### Premier test (après l'un OU l'autre des modes)
-
-```
-Liste les skills disponibles et explique ce que chacun fait.
-```
-
-Puis :
-
-```
-Drafte un post LinkedIn corporate annonçant que nous serons à RSNA 2026.
-Use the linkedin-post skill.
-```
-
-Si Claude pose des questions de clarification AVANT de rédiger, l'install est OK.
+Modifications éventuelles → PR + review (le brand pack est source de vérité, cf. section *Maintenance*).
 
 ### Settings locaux
 
 `.claude/settings.local.json` est gitignoré : chacun configure ses permissions / hooks à sa guise sans polluer les autres.
 
-### Mises à jour
-
-- **Skills (plugin)** : `/plugin update avicenna-marketing` dans Claude Code
-- **Brand pack & workflows** : `git pull` dans le clone
-
-Le brand pack est versionné — toute modif passe par PR + review (cf. section *Maintenance*).
-
 ---
 
 ## Démarrage en 4 étapes
 
-### Étape 1 — Remplir le brand pack (CRITIQUE, 2-4 heures avec ta marketeuse)
+### Étape 1 — Installer le plugin Claude Code (5 min)
 
-Sans ça, tout le reste génère de la soupe générique. À faire ensemble en
-atelier :
+Voir section *Setup pour un nouveau collaborateur > Profil A* ci-dessus :
+`/plugin marketplace add cyrou13/marketing` puis
+`/plugin install avicenna-marketing@avicenna-marketing` puis restart.
 
-1. `brand/voice.md` — la voix de marque
-2. `brand/regulatory-guard.md` — **à valider avec Quality + Reg Affairs**
-3. `brand/glossary.md` — un terme à la fois, avec les 3 niveaux d'audience
-4. `brand/audiences.md` — relire et adapter les personas
-5. `brand/proof-points.md` — collecter tous les chiffres citables
+### Étape 2 — Scaffolder un workspace (1 min)
 
-Tant que ces fichiers contiennent des « à compléter » sur des points
-critiques, les skills le signaleront et ne produiront pas de drafts à
-l'aveugle.
-
-### Étape 2 — Setup Claude.ai Project (15 min)
-
-Pour le travail quotidien fluide de ta marketeuse :
-
-1. Créer un Project nommé « Avicenna Marketing Studio » sur claude.ai
-2. Coller le contenu de `CLAUDE_PROJECT_SYSTEM_PROMPT.md` dans les
-   custom instructions
-3. Uploader dans le project knowledge :
-   - tous les fichiers de `brand/`
-   - 3-5 meilleurs `references/past-content/linkedin-best/`
-   - 3-5 meilleurs `references/past-content/blog-best/`
-   - 2-3 papers clés de `references/papers/`
-   - `references/competitors/landscape.md`
-
-Limite de 20 fichiers indicative. Sélectionner, pas tout uploader.
-
-### Étape 3 — Setup Claude Code (30 min, une fois pour toute l'équipe)
+Créer un dossier vide pour bosser ton contenu marketing, puis y lancer Claude Code :
 
 ```bash
-# Cloner le repo localement
-git clone <repo-url> avicenna-marketing
-cd avicenna-marketing
-
-# Lancer Claude Code à la racine
+mkdir ~/avicenna-content-2026
+cd ~/avicenna-content-2026
 claude
 ```
 
-Claude Code détecte automatiquement les skills dans `.claude/skills/`.
-Premier message recommandé pour vérifier :
+Puis taper **exactement** la commande suivante (sans autocomplete — la skill est volontairement masquée de la liste `/` pour ne pas être déclenchée par erreur) :
 
 ```
-Liste les skills disponibles et explique ce que chacun fait.
+/avicenna-marketing:start
 ```
 
-### Étape 4 — Premier essai
+La skill détecte que le workspace est vide → mode SCAFFOLD :
+- copie les 5 templates `brand/*.md` dans `./brand/` (éditables localement)
+- crée `./_claude-ai-knowledge/` avec `UPLOAD_CHECKLIST.md` (à utiliser pour l'Étape 4)
+- crée `./outputs/.gitkeep` (où les drafts iront)
+- audite l'état du brand pack et signale ce qui bloque
+
+Aux invocations suivantes (workspace déjà setup), la même commande passe en mode AUDIT seul — utile pour faire le point sur l'état du brand pack.
+
+### Étape 3 — Remplir le brand pack (CRITIQUE, 2-4 heures avec ta marketeuse)
+
+Sans ça, tout le reste génère de la soupe générique. À faire ensemble en atelier, dans l'ordre de priorité signalé par `/avicenna-marketing:start` :
+
+1. `brand/regulatory-guard.md` — **priorité absolue**, à valider avec Quality + Reg Affairs (bloque toutes les autres skills tant qu'il est vide)
+2. `brand/voice.md` — la voix de marque par canal
+3. `brand/audiences.md` — relire et adapter les 5 personas
+4. `brand/proof-points.md` — collecter tous les chiffres citables avec source
+5. `brand/glossary.md` — un terme à la fois, avec les 3 niveaux d'audience
+
+Tant que ces fichiers contiennent des `[À COMPLÉTER]` sur des points critiques, les skills le signaleront et ne produiront pas de drafts à l'aveugle.
+
+### Étape 4 — (Optionnel) Setup Claude.ai Project pour le travail quotidien
+
+Suivre la checklist auto-générée dans `./_claude-ai-knowledge/UPLOAD_CHECKLIST.md`. En résumé :
+
+1. claude.ai → Projects → New Project nommé « Avicenna Marketing Studio »
+2. Coller le contenu de `CLAUDE_PROJECT_SYSTEM_PROMPT.md` dans les custom instructions
+3. Drag-and-drop les fichiers de `./_claude-ai-knowledge/` dans le knowledge du Project
+4. Ajouter manuellement : 3-5 meilleurs posts/articles passés, 2-3 papers clés, `competitors/landscape.md` (limite 20 fichiers indicative)
+
+Le claude.ai Project est utile pour le draft rapide sans cérémonie ; les skills Claude Code restent l'outil de référence pour les contenus structurants (case-study, regulatory-comm, blog pillar).
+
+### Étape 5 — Premier essai
 
 Test simple avant un vrai workflow :
 
 ```
 Drafte un post LinkedIn corporate annonçant que nous serons à RSNA 2026.
-Stand prévu n°XXXX, on présentera la roadmap CT Perfusion. Use the
-linkedin-post skill.
+Stand prévu n°XXXX, on présentera la roadmap CT Perfusion.
 ```
 
-Si la sortie te paraît off, c'est probablement que le brand pack est
-encore trop vide. Itérer.
+Si Claude pose 2-3 questions de clarification AVANT de rédiger, l'install est OK. Si la sortie te paraît off, c'est probablement que le brand pack est encore trop vide — relancer `/avicenna-marketing:start` pour l'audit.
 
 ---
 
