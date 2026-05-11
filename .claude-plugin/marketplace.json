@@ -1,0 +1,15 @@
+{
+  "name": "avicenna-marketing",
+  "description": "Marketplace single-plugin Avicenna.ai : skills Claude Code pour la production de contenu marketing medtech (LinkedIn, blog, étude de cas, communiqué régulatoire, newsletter).",
+  "owner": {
+    "name": "Cyril Di Grandi",
+    "email": "cyril.di-grandi@avicenna.ai"
+  },
+  "plugins": [
+    {
+      "name": "avicenna-marketing",
+      "source": "./",
+      "description": "Skills de production de contenu marketing Avicenna.ai. Charge le brand pack et applique le regulatory-guard (MDR / FDA) avant chaque draft."
+    }
+  ]
+}
