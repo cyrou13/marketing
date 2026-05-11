@@ -7,10 +7,7 @@
     "email": "cyril.di-grandi@avicenna.ai"
   },
   "homepage": "https://github.com/cyrou13/marketing",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:cyrou13/marketing.git"
-  },
+  "repository": "https://github.com/cyrou13/marketing",
   "license": "UNLICENSED",
   "keywords": [
     "marketing",
